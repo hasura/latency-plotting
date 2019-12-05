@@ -170,17 +170,19 @@ pctl_legend = plt.legend(title='Percentile markers', loc='upper left',
 #   https://github.com/mwaskom/seaborn/issues/1257 
 #   or: https://github.com/ciortanmadalina/modality_tests/blob/master/violinboxplot_hybrid_axes.ipynb 
 # See: https://seaborn.pydata.org/generated/seaborn.violinplot.html 
-sns.violinplot(x=category_label, y=args.y_label, hue=x_label, data=df, palette="Set1", 
-               scale_hue=True,
-               # All violins get the same area (number of samples may differ):
-               scale="area", 
-               # More granular violins:
-               bw=.02, 
-               # This seems to wreck things:
-               # width=1.5,
-               linewidth=0,
-               # inner="quartile"
-               )
+# For now just disable for log scale:
+if not args.log:
+    sns.violinplot(x=category_label, y=args.y_label, hue=x_label, data=df, palette="Set1", 
+                   scale_hue=True,
+                   # All violins get the same area (number of samples may differ):
+                   scale="area", 
+                   # More granular violins:
+                   bw=.02, 
+                   # This seems to wreck things:
+                   # width=1.5,
+                   linewidth=0,
+                   # inner="quartile"
+                   )
 
 # Add back percentile legend:
 ax.add_artist(pctl_legend)
