@@ -205,12 +205,16 @@ if not args.log:
 #### Print useful tables and statistics:
 medians_df = df.groupby([category_label, x_label]).median()
 mins_df    = df.groupby([category_label, x_label]).min()
+pctl_95_df = df.groupby([category_label, x_label]).quantile(.95)
+pctl_99_df = df.groupby([category_label, x_label]).quantile(.99)
 print("")
 print("======================== Medians per variant ========================")
 print(medians_df)
 print("")
 medians_grid_df = medians_df.pivot_table(index=category_label, columns=x_label, values=args.y_label)
 mins_grid_df    =    mins_df.pivot_table(index=category_label, columns=x_label, values=args.y_label)
+pctl_95_df      = pctl_95_df.pivot_table(index=category_label, columns=x_label, values=args.y_label)
+pctl_99_df      = pctl_99_df.pivot_table(index=category_label, columns=x_label, values=args.y_label)
 
 
 #### Generate HTML table reports 
@@ -274,6 +278,8 @@ table_path = args.data_dir_path + '/table.html'
 with open(table_path,'w') as f:
     f.write(html_tablify(medians_grid_df, "Medians"))
     f.write(html_tablify(mins_grid_df,    "Minimums"))
+    f.write(html_tablify(pctl_95_df,      "95th Percentile"))
+    f.write(html_tablify(pctl_99_df,      "99th Percentile"))
     f.close()
     print("Saved data table to '%s'" % table_path)
     pass
