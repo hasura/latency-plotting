@@ -58,3 +58,8 @@ This directory comes with some example data, which you can use to generate a plo
 - It would be nice if we had a table of values for median, max, 95th pctl etc.
 
 See the code for more TODOs.
+
+# Credits
+
+- Github Link: https://github.com/hasura/latency-plotting
+
